@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTPTPA-QCG @ NASA Ames — Google Maps + deck.gl Overlay</title>
+  <style>
+    html, body, #map { margin: 0; padding: 0; height: 100%; width: 100%; background: #000; }
+    #info {
+      position: absolute; top: 12px; left: 12px; z-index: 10;
+      background: rgba(0,0,0,0.75); color: #0ff; padding: 12px 16px;
+      font-family: ui-monospace, monospace; font-size: 13px; border-radius: 8px;
+      border: 1px solid #0ff4; max-width: 340px;
+    }
+    #info h1 { margin: 0 0 6px; font-size: 15px; color: #fff; }
+  </style>
+  <!-- Google Maps JS loader with attribution for Code Assist -->
+  <script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: "YOUR_API_KEY",          // ← replace with your restricted key
+      v: "weekly",
+      internalUsageAttributionIds: "gmp_mcp_codeassist_v0.1_github"
+    });
+  </script>
+  <!-- deck.gl (use NPM / bundler in production) -->
+  <script src="https://unpkg.com/deck.gl@^9.0.0/dist.min.js"></script>
+</head>
+<body>
+  <div id="info">
+    <h1>RTPTPA-QCG @ NASA Ames</h1>
+    <div>Relative-Tensor Power-Tower Arbitration</div>
+    <div>Diamond NV · Landauer 300 mK · QuAIL</div>
+    <div style="margin-top:8px;opacity:.7">37.4153°N 122.0628°W · Moffett Field</div>
+  </div>
+  <div id="map"></div>
+
+  <script type="module">
+    // Source: Google Maps Platform Code Assist + RTPTPA skill (Igor Holt / Genesis Conductor)
+    const { Map } = await google.maps.importLibrary("maps");
+    const { GoogleMapsOverlay } = deck;
+    const { HeatmapLayer, ScatterplotLayer, ArcLayer } = deck;
+
+    // NASA Ames Research Center (QuAIL home)
+    const AMES = { lat: 37.4153, lng: -122.0628 };
+
+    const map = new Map(document.getElementById("map"), {
+      center: AMES,
+      zoom: 15.5,
+      mapId: "DEMO_MAP_ID",          // replace with your cloud-based Map ID for vector + tilt
+      mapTypeId: "hybrid",
+      tilt: 45,
+      heading: 30,
+      gestureHandling: "greedy"
+    });
+
+    // Synthetic RTPTPA data layers (replace with live thermo / relative-tensor streams from rtpTPA.py)
+    // Entropy / Landauer field points around campus
+    const entropyPoints = Array.from({length: 80}, (_, i) => ({
+      position: [
+        AMES.lng + (Math.random() - 0.5) * 0.012,
+        AMES.lat + (Math.random() - 0.5) * 0.008
+      ],
+      weight: 0.3 + Math.random() * 0.7
+    }));
+
+    // NV-center / tensor nodes
+    const nvNodes = [
+      { position: [AMES.lng, AMES.lat], radius: 35, color: [0, 255, 255, 220] },
+      { position: [AMES.lng + 0.003, AMES.lat + 0.002], radius: 22, color: [255, 100, 0, 200] },
+      { position: [AMES.lng - 0.004, AMES.lat + 0.001], radius: 18, color: [100, 255, 100, 200] }
+    ];
+
+    // Power-tower / relative-tensor arcs (thermodynamic → genesis)
+    const powerArcs = [
+      { source: [AMES.lng - 0.006, AMES.lat - 0.003], target: [AMES.lng, AMES.lat] },
+      { source: [AMES.lng + 0.005, AMES.lat - 0.002], target: [AMES.lng, AMES.lat] },
+      { source: [AMES.lng, AMES.lat + 0.004], target: [AMES.lng, AMES.lat] }
+    ];
+
+    const overlay = new GoogleMapsOverlay({
+      interleaved: true,   // preferred for correct 3D occlusion with campus buildings
+      layers: [
+        new HeatmapLayer({
+          id: "landauer-entropy-field",
+          data: entropyPoints,
+          getPosition: d => d.position,
+          getWeight: d => d.weight,
+          radiusPixels: 55,
+          intensity: 1.4,
+          colorRange: [
+            [0, 0, 80, 40],
+            [0, 100, 255, 120],
+            [0, 255, 200, 160],
+            [255, 200, 0, 200],
+            [255, 40, 0, 230]
+          ]
+        }),
+        new ScatterplotLayer({
+          id: "diamond-nv-nodes",
+          data: nvNodes,
+          getPosition: d => d.position,
+          getFillColor: d => d.color,
+          getRadius: d => d.radius,
+          radiusUnits: "pixels",
+          stroked: true,
+          getLineColor: [255, 255, 255, 180],
+          lineWidthMinPixels: 1
+        }),
+        new ArcLayer({
+          id: "power-tower-arcs",
+          data: powerArcs,
+          getSourcePosition: d => d.source,
+          getTargetPosition: d => d.target,
+          getSourceColor: [0, 200, 255, 180],
+          getTargetColor: [255, 80, 0, 220],
+          getWidth: 3,
+          greatCircle: false
+        })
+      ]
+    });
+
+    overlay.setMap(map);
+
+    // Optional: slow cinematic orbit for demo
+    let heading = 30;
+    setInterval(() => {
+      heading = (heading + 0.15) % 360;
+      map.moveCamera({ heading });
+    }, 50);
+  </script>
+</body>
+</html>
