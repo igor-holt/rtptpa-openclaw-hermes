@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soul Lattice v4.0 SSE — QUAIL / RTPTPA Stream</title>
+  <style>
+    body { background: #0a0a12; color: #0ff; font-family: ui-monospace, monospace; margin: 0; padding: 20px; }
+    #stream { white-space: pre-wrap; max-height: 70vh; overflow-y: auto; border: 1px solid #0ff4; padding: 12px; border-radius: 8px; }
+    h1 { color: #fff; font-size: 1.2rem; }
+    .event { margin-bottom: 8px; border-left: 3px solid #0f0; padding-left: 8px; }
+    .score { color: #0f0; }
+  </style>
+</head>
+<body>
+  <h1>SYS ALPHA · Soul Lattice SSE · NASA QuAIL (37.4153°N 122.0628°W)</h1>
+  <p>Real-time telemetry: crystal_score · spectral_gap · thermodynamic_yield · power_tower · control_fidelity</p>
+  <div id="stream">Connecting…</div>
+  <script>
+    // Demo client for Genesis Conductor Soul Lattice v4.0 SSE API
+    // In production: connect to your /sse or Cloudflare Worker endpoint that emits evt- records
+    const streamEl = document.getElementById('stream');
+    streamEl.textContent = '';
+
+    // Simulated stream (replace with real EventSource('/api/sse/quail') )
+    const events = [
+      { crystal_score: 0.92, spectral_gap: 0.12, thermodynamic_yield: 1.8e-12, power_tower: [0.333,0.333,0.334], control_fidelity: 0.98 },
+      { crystal_score: 0.93, spectral_gap: 0.115, thermodynamic_yield: 1.8e-12, power_tower: [0.333,0.333,0.334], control_fidelity: 0.98 },
+      { crystal_score: 0.94, spectral_gap: 0.11, thermodynamic_yield: 1.8e-12, power_tower: [0.333,0.333,0.334], control_fidelity: 0.98 },
+      { crystal_score: 0.95, spectral_gap: 0.105, thermodynamic_yield: 1.8e-12, power_tower: [0.333,0.333,0.334], control_fidelity: 0.98 },
+      { crystal_score: 0.96, spectral_gap: 0.1, thermodynamic_yield: 1.8e-12, power_tower: [0.333,0.333,0.334], control_fidelity: 0.98 },
+      { crystal_score: 0.97, spectral_gap: 0.095, thermodynamic_yield: 1.8e-12, power_tower: [0.333,0.333,0.334], control_fidelity: 0.98 }
+    ];
+
+    let i = 0;
+    function push() {
+      if (i >= events.length) i = 0;
+      const p = events[i++];
+      const div = document.createElement('div');
+      div.className = 'event';
+      div.innerHTML = `<span class="score">crystal=${p.crystal_score}</span>  gap=${p.spectral_gap}  thermo=${p.thermodynamic_yield}  fidelity=${p.control_fidelity}  tower=[${p.power_tower}]  · geo=Ames_QuAIL`;
+      streamEl.prepend(div);
+      if (streamEl.children.length > 20) streamEl.removeChild(streamEl.lastChild);
+    }
+    push();
+    setInterval(push, 1200);
+
+    // Real EventSource example (uncomment when backend ready):
+    /*
+    const es = new EventSource('/api/sse/quail');
+    es.addEventListener('genesis_telemetry', (e) => {
+      const data = JSON.parse(e.data);
+      // render data.payload
+    });
+    es.onerror = () => console.warn('SSE reconnecting…');
+    */
+  </script>
+</body>
+</html>
