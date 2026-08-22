@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/igor-holt/rtptpa-openclaw-hermes/skills/x402-negotiation-ip/schema.json",
+  "title": "x402 v2 negotiation challenge (Genesis Conductor)",
+  "type": "object",
+  "required": ["x402Version", "accepts", "resource"],
+  "properties": {
+    "x402Version": { "const": 2 },
+    "error": { "type": ["string", "null"] },
+    "accepts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["scheme", "network", "asset", "amount", "payTo", "maxTimeoutSeconds"],
+        "properties": {
+          "scheme": { "const": "exact" },
+          "network": { "type": "string", "examples": ["eip155:8453", "eip155:137"] },
+          "asset": { "type": "string" },
+          "amount": { "type": "string", "description": "USDC atomic units, 6 decimals" },
+          "payTo": { "type": "string" },
+          "maxTimeoutSeconds": { "type": "integer" },
+          "extra": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "version": { "type": "string" },
+              "stripe": {
+                "type": "object",
+                "properties": {
+                  "account": { "const": "acct_1Sw9EcL3TAuvgpHc" },
+                  "account_name": { "const": "Genesis Conductor, LLC" },
+                  "crypto_mode": { "const": "transaction_verification" }
+                }
+              },
+              "github": {
+                "type": "object",
+                "required": ["owner", "repo", "sha"],
+                "properties": {
+                  "owner": { "const": "igor-holt" },
+                  "repo": { "type": "string" },
+                  "sha": { "type": "string" },
+                  "license": { "type": "string" }
+                }
+              },
+              "profit": {
+                "type": "object",
+                "properties": {
+                  "operator_tithe_bps": { "type": "integer" },
+                  "pool_usdc": { "type": "number" },
+                  "splits": { "type": "array" },
+                  "arbitration_id": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "required": ["url", "description", "mimeType"],
+      "properties": {
+        "url": { "type": "string" },
+        "description": { "type": "string" },
+        "mimeType": { "const": "application/json" }
+      }
+    }
+  }
+}
