@@ -2,6 +2,8 @@
 
 **OpenClaw + Hermes compatible skill** for fusing multi-agent prompts into quantum control directives for Diamond NV-center systems.
 
+Companion skill **x402 negotiation IP** turns the same arbitration into a SHA-pinned USDC royalty table, settled over HTTP 402 with Stripe as facilitator.
+
 ## Install
 
 ### OpenClaw
@@ -13,6 +15,7 @@ openclaw skills install git:igor-holt/rtptpa-openclaw-hermes@main
 
 ### Hermes
 Copy `skills/relative-tensor-power-tower-arbitration/` into `~/.hermes/skills/` or use OpenClaw → Hermes migration tooling.
+Copy `skills/x402-negotiation-ip/` alongside it when licensing / profit splits are in scope.
 
 ## Triggers
 - `rtpTPA` / `RTPTPA-QCG`
@@ -20,6 +23,7 @@ Copy `skills/relative-tensor-power-tower-arbitration/` into `~/.hermes/skills/` 
 - `quantum control genesis`
 - `hermes classify quantum-control`
 - `mcp dispatch rtpTPA`
+- `x402` / `negotiation IP` / `PAYMENT-REQUIRED` / `Stripe facilitator`
 
 ## Core Invariants
 - Relative tensors only (coordinate-invariant)
@@ -27,6 +31,7 @@ Copy `skills/relative-tensor-power-tower-arbitration/` into `~/.hermes/skills/` 
 - Thermodynamic cost (Landauer) tracking
 - evt- provenance + post-quantum attestation ready
 - Projection to Diamond NV control_spec (frequency, phase, DD scheme, fidelity)
+- GitHub SHA pin is the IP coordinate; x402 `exact` scheme is the settlement wire
 
 ## Structure
 ```
@@ -35,11 +40,28 @@ skills/relative-tensor-power-tower-arbitration/
   scripts/rtpTPA.py
   references/genesis-conductor-integration.md
   references/maps-integration.md
+  references/x402-stripe.md
+skills/x402-negotiation-ip/
+  SKILL.md
+  schema.json          # x402 v2 challenge + Genesis extra (stripe, github, profit)
 cloudflare/
-  worker.js          # minimal authenticated webhook skeleton
+  worker.js            # minimal authenticated webhook skeleton
 examples/
-  maps-deckgl-rtptpa.html   # Google Maps + deck.gl holographic overlay demo
+  maps-deckgl-rtptpa.html
 ```
+
+## x402 negotiation IP
+
+Unpaid request → HTTP 402 + `PAYMENT-REQUIRED`. Buyer signs EIP-3009 and retries with `PAYMENT-SIGNATURE`. Amount equality is strict.
+
+| Layer | Value |
+| --- | --- |
+| Stripe | `acct_1Sw9EcL3TAuvgpHc` · Genesis Conductor, LLC |
+| payTo | `0x60C4499870f115664d7FfD8411b023DBEf3377d9` |
+| USDC Base | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` |
+| Live worker | https://x402-paid-service.iholt.workers.dev |
+
+Operator tithe (default 500 bps) is carved before power-tower weights split the remainder. Each grant is bound to `owner/repo@sha`.
 
 ## Cloudflare Webhook
 Minimal Worker for authenticated trigger + rate-limit + A2A JSONL emission. Deploy via Wrangler or Cloudflare dashboard. See `cloudflare/README.md`.
