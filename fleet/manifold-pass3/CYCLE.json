@@ -1,0 +1,12 @@
+{
+  "pass": 3,
+  "cycle_id": "manifold-pass3-2026-09-14T16:46Z",
+  "record_type": "pass_cycle",
+  "schema_version": "3.0",
+  "risk_R": 0.28,
+  "judgment": "Pass 1 and Pass 2 remain as dialects. Pass 3 is the only dispatchable operator.",
+  "next_vector": "Operator names one live task, or stops. Do not emit Pass 4.",
+  "uncollapsed": ["Cloudflare bind", "Com marketplace", "live task execution"],
+  "orcid_attribution": "0009-0008-8389-1297",
+  "status": "closed"
+}
