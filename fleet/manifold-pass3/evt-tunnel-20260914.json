@@ -1,0 +1,13 @@
+{
+  "evt_id": "evt_tunnel_manifold_pass3_20260914T1658Z",
+  "schema_version": "1.0",
+  "record_type": "penetration",
+  "tags": ["tunnel-through", "objective:financial-infrastructure", "oahu-h3", "maru-reframe"],
+  "status": "penetrated",
+  "assessment": "REFRAMED | R=0.31 | catalog-as-work shattered",
+  "payload": {
+    "mountain": "Catalog-as-work",
+    "tunnel_design": "First paid motion from Pass-3 cycle on existing RTPTPA + gc-fleet-registry",
+    "next_mountain": "Revenue booking"
+  }
+}
