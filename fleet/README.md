@@ -1,9 +1,9 @@
 # Fleet manifold
 
-| pass | path | status |
-|---|---|---|
-| 1 | `power-tower-fleet/` | dialect A — social compounding lexicon |
-| 2 | `genesis-tower-fleet/` | dialect B — thermodynamic lexicon |
-| 3 | `manifold-pass3/` | operator — typed contracts after positive disintegration |
+| pass | path | status | evolved instrument |
+|---|---|---|---|
+| 1 | `power-tower-fleet/` | dialect A | `EVOLVED.md` compounding test |
+| 2 | `genesis-tower-fleet/` | dialect B | `EVOLVED.md` surplus inquisition |
+| 3 | `manifold-pass3/` | operator | `cycle-kernel.md` |
 
-Do not dispatch Pass 1 or Pass 2 as agents. Do not add Pass 4 as a catalog.
+Pass 4 as a catalog is forbidden. Evolution is in place.
