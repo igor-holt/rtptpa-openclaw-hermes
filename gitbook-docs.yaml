@@ -1,0 +1,78 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+version: 1
+site:
+  title: RTPTPA-QCG — Relative-Tensor Power-Tower Prompt Arbitration
+  structure:
+    - type: section
+      key: section-skills
+      title: Skills
+      path: skills
+      default: true
+      children:
+        - type: space
+          key: space-rtptpa
+          title: Relative-Tensor Power-Tower Arbitration
+          path: rtptpa
+          default: true
+          content:
+            directory: ./skills/relative-tensor-power-tower-arbitration
+        - type: space
+          key: space-x402
+          title: x402 Negotiation IP
+          path: x402
+          content:
+            directory: ./skills/x402-negotiation-ip
+    - type: section
+      key: section-fleet
+      title: Fleet
+      path: fleet
+      children:
+        - type: space
+          key: space-fleet-overview
+          title: Fleet Overview
+          path: overview
+          default: true
+          content:
+            directory: ./fleet
+        - type: space
+          key: space-genesis-tower
+          title: Genesis Tower Fleet
+          path: genesis-tower
+          content:
+            directory: ./fleet/genesis-tower-fleet
+        - type: space
+          key: space-manifold
+          title: Manifold Pass 3
+          path: manifold
+          content:
+            directory: ./fleet/manifold-pass3
+        - type: space
+          key: space-power-tower
+          title: Power Tower Fleet
+          path: power-tower
+          content:
+            directory: ./fleet/power-tower-fleet
+    - type: section
+      key: section-infrastructure
+      title: Infrastructure & References
+      path: infrastructure
+      children:
+        - type: space
+          key: space-references
+          title: References
+          path: references
+          default: true
+          content:
+            directory: ./references
+        - type: space
+          key: space-examples
+          title: Examples
+          path: examples
+          content:
+            directory: ./examples
+        - type: space
+          key: space-cloudflare
+          title: Cloudflare Worker
+          path: cloudflare
+          content:
+            directory: ./cloudflare
