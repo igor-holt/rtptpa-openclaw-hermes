@@ -1,0 +1,4 @@
+# Local research data must not be committed.
+private-research/
+__pycache__/
+*.py[cod]
