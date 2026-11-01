@@ -1,5 +1,7 @@
 # RTPTPA Google Maps Platform + deck.gl Integration
 
+> Illustrative only: map location and example data do not establish NASA or QuAIL affiliation or endorsement, live telemetry, or validated control results.
+
 ## Purpose
 Geo-locate the Relative-Tensor Power-Tower Prompt Arbitration (RTPTPA-QCG) system as a holographic scientific dashboard over real-world research infrastructure — specifically **NASA Ames Research Center** (Moffett Field, California), home of the Quantum Artificial Intelligence Laboratory (QuAIL).
 

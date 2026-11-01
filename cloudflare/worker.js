@@ -1,15 +1,9 @@
 /**
- * RTPTPA Cloudflare Worker — minimal authenticated webhook skeleton
- * Deploy: wrangler deploy or Cloudflare dashboard (Workers)
- * Env vars: RTP_TPA_SECRET (shared secret for HMAC or Bearer), RATE_LIMIT_KV (optional KV)
- *
- * POST /rtpTPA  with JSON body { prompts: string[], crystal_scores: number[], spectral_gaps: number[], thermo?: object }
- * Headers: Authorization: Bearer <secret>  or  X-RTP-Signature: hmac-sha256
- *
- * Returns: control_spec + evt- record (or 401/429)
- *
- * This is a skeleton. Wire the actual RTPTPA logic via Durable Object / external Python runtime / or fetch to a Genesis Conductor endpoint.
- * Enforces: auth, rate limit (simple token bucket via KV), replay protection (timestamp window), A2A JSONL emission log.
+ * RTPTPA Cloudflare Worker — experimental webhook stub; not production-ready.
+ * RTP_TPA_SECRET is checked as a Bearer token. RATE_LIMIT_KV is optional.
+ * POST /rtpTPA or / with a JSON body; success returns a stub, not engine output.
+ * No HMAC verification or replay protection is implemented. Optional KV-based
+ * rate limiting is approximate and non-atomic; optional A2A_LOG stores a log.
  */
 
 export default {

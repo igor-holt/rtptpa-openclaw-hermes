@@ -1,98 +1,31 @@
-# RTPTPA-QCG — Relative-Tensor Power-Tower Prompt Arbitration
+# Pass-3: a decision cycle for finding market gaps
 
-**OpenClaw + Hermes compatible skill** for fusing multi-agent prompts into quantum control directives for Diamond NV-center systems.
+A lightweight, seven-step decision aid for founders and small teams exploring a possible underserved market. Start with a customer and their current alternatives; finish with **one owned, checkable next action**. It can be run by one person or with an assistant—no deployment, numerical engine, or multi-agent fleet required.
 
-Companion skill **x402 negotiation IP** turns the same arbitration into a SHA-pinned USDC royalty table, settled over HTTP 402 with Stripe as facilitator.
+- **[Start here: five-minute market-gap quickstart](fleet/manifold-pass3/BLUE-OCEAN-QUICKSTART.md)** — worksheet, copy-paste prompt, and fictional worked example.
+- **[Full Pass-3 protocol](fleet/manifold-pass3/PROTOCOL.md)** — role contracts, consent and stop rules, and a cycle record.
+- **[Validation plan](fleet/manifold-pass3/VALIDATION-PLAN.md)** and **[research kit](fleet/manifold-pass3/RESEARCH-KIT.md)** — proposed sessions, consent script, and an empty log; no user research or commercial results are claimed.
+- **[Internal desk pilot](fleet/manifold-pass3/INTERNAL-PILOT.md)** — an example using this repository, not an independent user test.
+- **[Results and local analysis](fleet/manifold-pass3/RESULTS-AND-TELEMETRY.md)** — privacy-conscious, opt-in research workflow; no passive tracking.
 
-## Install
+A “blue ocean” is a hypothesis to investigate, not a finding established by this tool. It does not prove novelty, demand, willingness to pay, or outcomes; the decision owner remains responsible for evidence, authorization, and consequential decisions.
 
-### OpenClaw
-```bash
-# From this repo (workspace skills)
-openclaw skills install git:igor-holt/rtptpa-openclaw-hermes@main
-# or clone into ~/.openclaw/skills/ or <workspace>/skills/
-```
+## What else is in this repository?
 
-### Hermes
-Copy `skills/relative-tensor-power-tower-arbitration/` into `~/.hermes/skills/` or use OpenClaw → Hermes migration tooling.
-Copy `skills/x402-negotiation-ip/` alongside it when licensing / profit splits are in scope.
-
-## Triggers
-- `rtpTPA` / `RTPTPA-QCG`
-- `power-tower arbitration`
-- `quantum control genesis`
-- `hermes classify quantum-control`
-- `mcp dispatch rtpTPA`
-- `x402` / `negotiation IP` / `PAYMENT-REQUIRED` / `Stripe facilitator`
-
-## Core Invariants
-- Relative tensors only (coordinate-invariant)
-- Power-tower hierarchical weights (thermodynamic → quantum → control → genesis)
-- Thermodynamic cost (Landauer) tracking
-- evt- provenance + post-quantum attestation ready
-- Projection to Diamond NV control_spec (frequency, phase, DD scheme, fidelity)
-- GitHub SHA pin is the IP coordinate; x402 `exact` scheme is the settlement wire
-
-## Structure
-```
-skills/relative-tensor-power-tower-arbitration/
-  SKILL.md
-  scripts/rtpTPA.py
-  references/genesis-conductor-integration.md
-  references/maps-integration.md
-  references/x402-stripe.md
-skills/x402-negotiation-ip/
-  SKILL.md
-  schema.json          # x402 v2 challenge + Genesis extra (stripe, github, profit)
-cloudflare/
-  worker.js            # minimal authenticated webhook skeleton
-examples/
-  maps-deckgl-rtptpa.html
-```
-
-## x402 negotiation IP
-
-Unpaid request → HTTP 402 + `PAYMENT-REQUIRED`. Buyer signs EIP-3009 and retries with `PAYMENT-SIGNATURE`. Amount equality is strict.
-
-| Layer | Value |
+| Path | Status |
 | --- | --- |
-| Stripe | `acct_1Sw9EcL3TAuvgpHc` · Genesis Conductor, LLC |
-| payTo | `0x60C4499870f115664d7FfD8411b023DBEf3377d9` |
-| USDC Base | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` |
-| Live worker | https://x402-paid-service.iholt.workers.dev |
+| `fleet/` | The source material and decision protocol; Passes 1 and 2 are historical dialects, not separate required agents. |
+| `skills/relative-tensor-power-tower-arbitration/` | Experimental numerical prototype and skill description. **Not validated for quantum control, weighting decisions, or deployment.** |
+| `skills/x402-negotiation-ip/` | Experimental x402 licensing schema and documentation. Integration and settlement are not verified by the Pass-3 protocol. |
+| `cloudflare/` | Bearer-authenticated webhook **stub**, not an engine or production service. No HMAC or replay protection; optional KV rate limiting is non-atomic. |
+| `examples/` and `references/` | Illustrations and integration notes, not evidence of live telemetry, validated control, or institutional endorsement. |
 
-Operator tithe (default 500 bps) is carved before power-tower weights split the remainder. Each grant is bound to `owner/repo@sha`.
+### Numerical prototype limitations
 
-## Cloudflare Webhook
-Minimal Worker for authenticated trigger + rate-limit + A2A JSONL emission. Deploy via Wrangler or Cloudflare dashboard. See `cloudflare/README.md`.
+The Python prototype requires NumPy, which is not declared in the skill's current OpenClaw metadata. It should not be used to drive physical hardware or allocate value. Its normalized iterative weights tend toward uniformity, its componentwise relative formula is not generally coordinate-invariant, and output projection can saturate. Fidelity and thermodynamic cost values are formula-derived rather than measured. Its event record includes a hardcoded `1.28` convergence value and a structural-invariance flag; neither establishes an observed result. No cryptographic attestation is performed by the Python script. These limitations remain unresolved; the standalone decision protocol does not depend on it.
 
-## Genesis Conductor Alignment
-Compatible with Seismic Tree-of-Thoughts, Ouroboros V2, Diamondnode high-VPD portfolio, maru guards, and trace-consent ledger.
+The geographic visualization uses a NASA Ames/QuAIL location as an illustrative setting only. This repository does not establish affiliation, endorsement, or operation there. The map example requires external services and an API key; simulated values are not measurements.
 
-## Google Maps Platform + deck.gl Geo-Visualization (NEW)
+## License and attribution
 
-The RTPTPA system is now geo-located as a holographic scientific dashboard over **NASA Ames Research Center** (Moffett Field, CA — home of QuAIL / Quantum Artificial Intelligence Laboratory).
-
-**Coordinates**: 37.4153° N, 122.0628° W
-
-Live Imagine-generated visualization (6s video of the full system pulsing over the Ames campus map):
-- Relative-tensor network R_ij + power-tower bars (thermodynamic → quantum → control → genesis)
-- Landauer entropy production field at 300 mK
-- Diamond NV spin stabilization with XY8/CPMG dynamical decoupling
-- GPU/NVML thermal heat maps
-- Real-time crystal_score / spectral_gap metrics
-
-**Interactive demo**: open `examples/maps-deckgl-rtptpa.html` (replace `YOUR_API_KEY` and optionally set a cloud Map ID).
-
-This follows official Google Maps Platform best practices for scientific data visualization:
-- deck.gl `GoogleMapsOverlay` (interleaved WebGL mode preferred for 3D depth with campus buildings)
-- HeatmapLayer for entropy / thermal fields
-- ScatterplotLayer / custom layers for NV centers and tensor nodes
-- Vector basemap + tilt/rotation for cinematic camera
-
-See `references/maps-integration.md` for full details, code, and links to GMP docs.
-
-**Principal Investigator:** Igor Holt (Kovach Enterprises / Genesis Conductor)  
-ORCID: 0009-0008-8389-1297
-
-License: MIT
+The repository metadata declares MIT, but this checkout does not contain a standalone license file. Repository materials attribute the work to Igor Holt (ORCID 0009-0008-8389-1297).

@@ -1,6 +1,6 @@
 # Cloudflare Worker for RTPTPA Triggers
 
-Minimal authenticated webhook skeleton that accepts multi-agent prompts and returns a control_spec / evt- envelope.
+Experimental Bearer-authenticated webhook stub. Successful responses are placeholders, not control specifications or engine results. It does not verify HMAC signatures or prevent replay. The optional KV counter is non-atomic and is not a reliable security boundary. Do not deploy as a production service without security review and additional controls.
 
 ## Deploy
 
